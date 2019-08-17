@@ -7,19 +7,24 @@ const animate = (speed, init) => {
     throw new TypeError('The second argument must be a string.')
   }
 
+  // specify diff between animation & state
   const computeCurrentAnimation = state => {
-    let curreentAnimation = ''
-    for (let i = 0; i < init.length; i++) {
-      let particle = init[i]
+    // console.log('state', state)
+    let currentAnimationArray = [...state]
 
-      if (particle === '.') curreentAnimation[i] = '.'
-      else curreentAnimation[i] = 'X'
+    for (let i = 0; i < state.length; i++) {
+      let particle = state[i]
+
+      if (particle === '.') currentAnimationArray.splice(i, 1, '.')
+      else currentAnimationArray.splice(i, 1, 'X')
     }
 
-    return curreentAnimation
+    const currentAnimationString = currentAnimationArray.join('')
+    return currentAnimationString
   }
 
-  const computeNextState = (speed, currentState) => {
+  // specify diff between animation & state
+  const computeNextState = currentState => {
     let nextState = [...currentState]
 
     for (let i = 0; i < currentState.length; i++) {
@@ -41,11 +46,11 @@ const animate = (speed, init) => {
     return nextState
   }
 
-  const checkContainer = () => {
+  const checkChamber = state => {
     let isEmpty = false
 
-    for (let i = 0; i < init.length; i++) {
-      let particle = init[i]
+    for (let i = 0; i < state.length; i++) {
+      let particle = state[i]
 
       if (particle !== '.') {
         isEmpty = false
@@ -58,8 +63,21 @@ const animate = (speed, init) => {
     return isEmpty
   }
 
-  let chamberIsEmpty = checkContainer(init)
   const animation = []
+
+  // let chamberIsEmpty = checkChamber(init)
+  let chamberIsEmpty = false
+
+  let currentState = init
+
+  while (!chamberIsEmpty) {
+    let currentAnimation = computeCurrentAnimation(currentState)
+    animation.push(currentAnimation)
+
+    let nextState = computeNextState(currentState)
+    chamberIsEmpty = checkChamber(currentState)
+    currentState = nextState
+  }
 
   return animation
 }
