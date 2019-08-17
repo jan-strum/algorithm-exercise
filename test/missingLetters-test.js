@@ -18,6 +18,12 @@ describe('getMissingLetters', () => {
   const missingFromLions = getMissingLetters(lions)
   const missingFromEmpty = getMissingLetters(empty)
 
+  it('should return a string', () => {
+    expect(missingFromSlowFox).to.be.a('string')
+    expect(missingFromLions).to.be.a('string')
+    expect(missingFromEmpty).to.be.a('string')
+  })
+
   it('should return all letters not present in the input string', () => {
     expect(missingFromSlowFox).to.equal('bjkmqz')
     expect(missingFromLions).to.equal('cfjkpquvwxz')
