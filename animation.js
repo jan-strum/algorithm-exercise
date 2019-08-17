@@ -19,8 +19,29 @@ const animate = (speed, init) => {
     return curreentAnimation
   }
 
-  // fix param / move outside
-  const checkContainer = init => {
+  const computeNextState = (speed, currentState) => {
+    let nextState = [...currentState]
+
+    for (let i = 0; i < currentState.length; i++) {
+      let particle = currentState[i]
+
+      if (particle === 'L') {
+        nextState.splice(i, 1, '.')
+        if (i - speed >= 0) {
+          nextState.splice(i - speed, 1, 'L')
+        }
+      } else if (particle === 'R') {
+        nextState.splice(i, 1, '.')
+        if (i + speed <= currentState.length - 1) {
+          nextState.splice(i + speed, 1, 'R')
+        }
+      }
+    }
+
+    return nextState
+  }
+
+  const checkContainer = () => {
     let isEmpty = false
 
     for (let i = 0; i < init.length; i++) {
