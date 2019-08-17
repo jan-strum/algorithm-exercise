@@ -7,6 +7,18 @@ const animate = (speed, init) => {
     throw new TypeError('The second argument must be a string.')
   }
 
+  const computeCurrentAnimation = state => {
+    let curreentAnimation = ''
+    for (let i = 0; i < init.length; i++) {
+      let particle = init[i]
+
+      if (particle === '.') curreentAnimation[i] = '.'
+      else curreentAnimation[i] = 'X'
+    }
+
+    return curreentAnimation
+  }
+
   // fix param / move outside
   const checkContainer = init => {
     let isEmpty = false
