@@ -1,33 +1,33 @@
-const findMissingLetters = string => {
+const getMissingLetters = string => {
   if (typeof string !== 'string') {
     throw new TypeError(
-      'findMissingLettersCache must take a string as an input.'
+      'getMissingLettersCache must take a string as an input.'
     )
   }
 
-  // lowercase later
-  const characters = [...string.toLowerCase()]
-  const alphabetString = 'abcdefghijklmnopqrstuvwxyz'
-  const presentCharactersCache = {}
+  const characters = [...string]
+  const presentCharacters = {}
 
-  // Cache all characters present in input string:
   characters.forEach(char => {
-    if (!presentCharactersCache[char]) presentCharactersCache[char] = true
+    // Store each unique character in the presentCharacters object:
+    if (!presentCharacters[char]) {
+      presentCharacters[char] = true
+    }
   })
 
+  const alphabetString = 'abcdefghijklmnopqrstuvwxyz'
   const alphabetArray = [...alphabetString]
 
+  // Find all letters in the alphabet not present in the input string:
   const missingLettersArray = alphabetArray.filter(
-    letter => !presentCharactersCache[letter]
+    letter =>
+      !presentCharacters[letter] &&
+      !presentCharacters[letter.toLocaleUpperCase()] // (Case insensitive.)
   )
 
   const missingLettersString = missingLettersArray.join('')
-  console.log('m', missingLettersString)
+
   return missingLettersString
 }
 
-const slowFox = 'A slow yellow fox crawls under the proactive dog'
-
-findMissingLetters(slowFox)
-
-module.exports = findMissingLetters
+module.exports = getMissingLetters

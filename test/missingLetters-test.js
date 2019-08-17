@@ -1,12 +1,12 @@
 const { expect } = require('chai')
-const findMissingLetters = require('../missingLetters')
+const getMissingLetters = require('../missingLetters')
 
-describe('findMissingLetters', () => {
+describe('getMissingLetters', () => {
   it('should take a string as an input', () => {
     const badInputs = [undefined, null, 1, {}, []]
 
     badInputs.forEach(badInput => {
-      expect(() => findMissingLetters(badInput)).to.throw(TypeError)
+      expect(() => getMissingLetters(badInput)).to.throw(TypeError)
     })
   })
 
@@ -14,9 +14,9 @@ describe('findMissingLetters', () => {
   const lions = 'Lions, and tigers, and bears, oh my!'
   const empty = ''
 
-  const missingFromSlowFox = findMissingLetters(slowFox)
-  const missingFromLions = findMissingLetters(lions)
-  const missingFromEmpty = findMissingLetters(empty)
+  const missingFromSlowFox = getMissingLetters(slowFox)
+  const missingFromLions = getMissingLetters(lions)
+  const missingFromEmpty = getMissingLetters(empty)
 
   it('should return all letters not present in the input string', () => {
     expect(missingFromSlowFox).to.equal('bjkmqz')
@@ -27,20 +27,20 @@ describe('findMissingLetters', () => {
   it('should return letters in lowercase', () => {
     expect(missingFromSlowFox).to.equal(missingFromSlowFox.toLowerCase())
     expect(missingFromLions).to.equal(missingFromLions.toLowerCase())
-    expect(missingFromEmpty).to.equal(missingFromEmpty.toLowerCase())
   })
 
   it('should return letters in alphabetical order', () => {
-    expect(missingFromSlowFox.split('')).to.deep.equal(
-      missingFromSlowFox.split('').sort()
+    const missingFromSlowFoxArray = missingFromSlowFox.split('')
+    const missingFromLionsArray = missingFromLions.split('')
+
+    expect(missingFromSlowFoxArray).to.deep.equal(
+      missingFromSlowFoxArray.sort()
     )
-    expect(missingFromLions.split('')).to.deep.equal(
-      missingFromLions.split('').sort()
-    )
+    expect(missingFromLionsArray).to.deep.equal(missingFromLionsArray.sort())
   })
 
   it('should return an empty string when given a pangram', () => {
     const pangram = 'A quick brown fox jumps over the lazy dog'
-    expect(findMissingLetters(pangram)).to.equal('')
+    expect(getMissingLetters(pangram)).to.equal('')
   })
 })
