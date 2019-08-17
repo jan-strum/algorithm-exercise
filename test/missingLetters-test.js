@@ -19,21 +19,24 @@ describe('findMissingLetters', () => {
   const missingFromEmpty = findMissingLetters(empty)
 
   it('should return all letters not present in the input string', () => {
-    expect(missingFromSlowFox.to.equal('bjkmqz'))
-    expect(missingFromLions.to.equal('cfjkpquvwxz'))
-    expect(missingFromEmpty.to.equal('abcdefghijklmnopqrstuvwxyz'))
+    expect(missingFromSlowFox).to.equal('bjkmqz')
+    expect(missingFromLions).to.equal('cfjkpquvwxz')
+    expect(missingFromEmpty).to.equal('abcdefghijklmnopqrstuvwxyz')
   })
 
   it('should return letters in lowercase', () => {
-    expect(missingFromSlowFox.to.equal(missingFromSlowFox.toLowerCase()))
-    expect(missingFromLions.to.equal(missingFromLions.toLowerCase()))
-    expect(missingFromEmpty.to.equal(missingFromEmpty.toLowerCase()))
+    expect(missingFromSlowFox).to.equal(missingFromSlowFox.toLowerCase())
+    expect(missingFromLions).to.equal(missingFromLions.toLowerCase())
+    expect(missingFromEmpty).to.equal(missingFromEmpty.toLowerCase())
   })
 
   it('should return letters in alphabetical order', () => {
-    expect(missingFromSlowFox.to.equal(missingFromSlowFox.sort()))
-    expect(missingFromLions.to.equal(missingFromLions.sort()))
-    expect(missingFromEmpty.to.equal(missingFromEmpty.sort()))
+    expect(missingFromSlowFox.split('')).to.deep.equal(
+      missingFromSlowFox.split('').sort()
+    )
+    expect(missingFromLions.split('')).to.deep.equal(
+      missingFromLions.split('').sort()
+    )
   })
 
   it('should return an empty string when given a pangram', () => {
