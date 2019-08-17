@@ -2,12 +2,12 @@ const { expect } = require('chai')
 const animate = require('../animation')
 
 describe('animate', () => {
-  const result0 = animate(2, '..R....')
-  const result1 = animate(3, 'RR..LRL')
-  const result2 = animate(2, 'LRLR.LRLR')
-  const result3 = animate(10, 'RLRLRLRLRL')
-  const result4 = animate(1, '...')
-  const result5 = animate(1, 'LRRL.LR.LRR.R.LRRL.')
+  const animation0 = animate(2, '..R....')
+  const animation1 = animate(3, 'RR..LRL')
+  const animation2 = animate(2, 'LRLR.LRLR')
+  const animation3 = animate(10, 'RLRLRLRLRL')
+  const animation4 = animate(1, '...')
+  const animation5 = animate(1, 'LRRL.LR.LRR.R.LRRL.')
 
   it('should take a positive integer representing speed as its first argument', () => {
     expect(() => animate('1')).to.throw(TypeError)
@@ -20,42 +20,54 @@ describe('animate', () => {
   })
 
   it('should return an array given valid arguments', () => {
-    const result = animate(1, 'L.R')
+    const animation = animate(1, 'L.R')
 
-    expect(result).to.be.an('array')
+    expect(animation).to.be.an('array')
   })
 
   it('should return an array, the first element of which represents the inital state of the chamber', () => {
-    expect(result0[0]).to.deep.equal(['..X....'])
-    expect(result1[0]).to.deep.equal(['XX..XXX'])
-    expect(result2[0]).to.deep.equal(['XXXX.XXXX'])
-    expect(result3[0]).to.deep.equal(['XXXXXXXXXX'])
-    expect(result4[0]).to.deep.equal(['...'])
-    expect(result5[0]).to.deep.equal(['XXXX.XX.XXX.X.XXXX.'])
+    expect(animation0[0]).to.deep.equal(['..X....'])
+    expect(animation1[0]).to.deep.equal(['XX..XXX'])
+    expect(animation2[0]).to.deep.equal(['XXXX.XXXX'])
+    expect(animation3[0]).to.deep.equal(['XXXXXXXXXX'])
+    expect(animation4[0]).to.deep.equal(['...'])
+    expect(animation5[0]).to.deep.equal(['XXXX.XX.XXX.X.XXXX.'])
   })
 
   it('should return an array, the last element of which represents the the final, empty state of the chamber', () => {
-    expect(result0[result0.length - 1]).to.deep.equal(['.......'])
-    expect(result1[result1.length - 1]).to.deep.equal(['.......'])
-    expect(result2[result2.length - 1]).to.deep.equal(['.........'])
-    expect(result3[result3.length - 1]).to.deep.equal(['..........'])
-    expect(result4[result4.length - 1]).to.deep.equal(['...'])
-    expect(result5[result5.length - 1]).to.deep.equal(['...................'])
+    expect(animation0[animation0.length - 1]).to.deep.equal(['.......'])
+    expect(animation1[animation1.length - 1]).to.deep.equal(['.......'])
+    expect(animation2[animation2.length - 1]).to.deep.equal(['.........'])
+    expect(animation3[animation3.length - 1]).to.deep.equal(['..........'])
+    expect(animation4[animation4.length - 1]).to.deep.equal(['...'])
+    expect(animation5[animation5.length - 1]).to.deep.equal([
+      '...................'
+    ])
   })
 
   it('should return an array, each element of which represents the state of the chamber at the corresponding index', () => {
-    expect(result0).to.deep.equal(['..X....', '....X..', '......X', '.......'])
-    expect(result1).to.deep.equal(['XX..XXX', '.X.XX..', 'X.....X', '.......'])
-    expect(result2).to.deep.equal([
+    expect(animation0).to.deep.equal([
+      '..X....',
+      '....X..',
+      '......X',
+      '.......'
+    ])
+    expect(animation1).to.deep.equal([
+      'XX..XXX',
+      '.X.XX..',
+      'X.....X',
+      '.......'
+    ])
+    expect(animation2).to.deep.equal([
       'XXXX.XXXX',
       'X..X.X..X',
       '.X.X.X.X.',
       '.X.....X.',
       '.........'
     ])
-    expect(result3).to.deep.equal(['XXXXXXXXXX', '..........'])
-    expect(result4).to.deep.equal(['...'])
-    expect(result5).to.deep.equal([
+    expect(animation3).to.deep.equal(['XXXXXXXXXX', '..........'])
+    expect(animation4).to.deep.equal(['...'])
+    expect(animation5).to.deep.equal([
       'XXXX.XX.XXX.X.XXXX.',
       '..XXX..X..XX.X..XX.',
       '.X.XX.X.X..XX.XX.XX',

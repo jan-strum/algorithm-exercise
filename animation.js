@@ -7,7 +7,28 @@ const animate = (speed, init) => {
     throw new TypeError('The second argument must be a string.')
   }
 
-  return []
+  // fix param / move outside
+  const checkContainer = init => {
+    let isEmpty = false
+
+    for (let i = 0; i < init.length; i++) {
+      let particle = init[i]
+
+      if (particle !== '.') {
+        isEmpty = false
+        return isEmpty
+      } else {
+        isEmpty = true
+      }
+    }
+
+    return isEmpty
+  }
+
+  let chamberIsEmpty = checkContainer(init)
+  const animation = []
+
+  return animation
 }
 
 module.exports = animate
