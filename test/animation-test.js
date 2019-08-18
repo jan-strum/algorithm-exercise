@@ -15,7 +15,7 @@ describe('animate', () => {
   })
 
   it('should take a string of positions as its second argument', () => {
-    //Test case with 'LX.RQ>' as second argument
+    // Test case with 'LX.RQ>' as second argument
     expect(() => animate(1, ['L', '.', 'R'])).to.throw(TypeError)
   })
 
