@@ -20,21 +20,8 @@ const validateArguments = (speed, init) => {
   })
 }
 
-const checkChamber = nextAnimation => {
-  let isEmpty = false
-
-  for (let i = 0; i < nextAnimation.length; i++) {
-    let particle = nextAnimation[i]
-
-    if (particle !== '.') {
-      isEmpty = false
-      // As soon as a position in the chamber is found to be occupied,
-      // this function will return false:
-      return isEmpty
-    } else {
-      isEmpty = true
-    }
-  }
+const checkChamber = chamber => {
+  const isEmpty = [...chamber].every(position => position === '.')
 
   return isEmpty
 }
@@ -44,15 +31,14 @@ const computeAnimation = (speed, init, time) => {
   const animation = [...init].map(location => '.')
 
   for (let i = 0; i < init.length; i++) {
-    const direction = init[i] // "L", "R", or ."
-    const nextLocation = // A particle's next location, given its index,
-      // direction, the chamber's speed, and the time.
-      direction === 'L' ? i - speed * time : i + speed * time
+    const direction = init[i] // "L", "R", or "."
+    const nextLocation = direction === 'L' ? i - speed * time : i + speed * time
+    // A particle's next location, given its, direction, index, the chamber's speed,
+    // and the time.
 
-    // The second expression of the following two conditions checks
-    // to see whether or not a particle's location is within the chamber.
-    // If it is, the position is marked with an "X". If it is not,
-    // nothing is done.
+    // The second expression of the following two conditions checks to see
+    // whether or not a particle's next location will be within the chamber.
+    // If it is, the position is marked with an "X". If it is not, nothing is done.
     if (direction === 'L' && init[nextLocation]) {
       animation[nextLocation] = 'X'
     } else if (direction === 'R' && init[nextLocation]) {
@@ -76,16 +62,14 @@ const animate = (speed, init) => {
   const animations = []
 
   while (!chamberIsEmpty) {
-    // By initializing — but not defining — chamberIsEmpty above,
-    // the animation for "init" is always computed and pushed
-    // into the animations array, regardless of whether or not
-    // "init" denotes an empty chamber (i.e., regardless of
-    // whether or not "chamberIsEmpty" is true).
+    // By initializing — but not defining — chamberIsEmpty above, the animation
+    // for "init" is always computed and pushed into the animations array,
+    // regardless of whether or not "init" denotes an empty chamber.
     currentAnimation = computeAnimation(speed, init, time)
     animations.push(currentAnimation)
 
-    time++
     chamberIsEmpty = checkChamber(currentAnimation)
+    time++
   }
 
   return animations

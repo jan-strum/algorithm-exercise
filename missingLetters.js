@@ -26,7 +26,7 @@ const composeMissingLetters = letterCache => {
   // but for the sake of readability, I opted not to do so here.
 
   // Find all letters in the alphabet not present in the "letterCache"
-  // (i.e., not present in the input string):
+  // (i.e., not present in the "string" argument):
   const missingLettersArray = alphabetArray.filter(
     letter => !letterCache[letter]
   )

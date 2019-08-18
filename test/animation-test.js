@@ -9,13 +9,20 @@ describe('animate', () => {
   const animation4 = animate(1, '...')
   const animation5 = animate(1, 'LRRL.LR.LRR.R.LRRL.')
 
-  it('should take a positive integer representing speed as its first argument', () => {
+  it('should take a positive integer (type number) representing speed as its first argument', () => {
     expect(() => animate(3000, '..L..R..L..R..L..R..L..R..L..R')).not.to.throw()
+  })
+
+  it('should throw an error when not given a positive integer (type number) as its first argument', () => {
     expect(() => animate('1')).to.throw(TypeError)
     expect(() => animate(0)).to.throw(Error)
   })
 
   it('should take a string of particles as its second argument', () => {
+    expect(() => animate(1, 'LRLRL....')).not.to.throw()
+  })
+
+  it('should throw an error when not given a valid string of particles as its second argument', () => {
     expect(() => animate(1, ['L', '.', 'R'])).to.throw(TypeError)
     expect(() => animate(1, 'L.R.V.>.L?')).to.throw(Error)
   })

@@ -6,18 +6,21 @@ describe('getMissingLetters', () => {
   const lions = 'Lions, and tigers, and bears, oh my!'
   const empty = ''
 
-  const goodInputs = [slowFox, lions, empty]
-  const badInputs = [undefined, null, 1, {}, []]
+  const stringArguments = [slowFox, lions, empty]
+  const nonStringArguments = [undefined, null, 1, {}, []]
 
   const missingFromSlowFox = getMissingLetters(slowFox)
   const missingFromLions = getMissingLetters(lions)
   const missingFromEmpty = getMissingLetters(empty)
 
-  it('should take a string as an input', () => {
-    goodInputs.forEach(goodInput => {
+  it('should take a string as an argument', () => {
+    stringArguments.forEach(goodInput => {
       expect(() => getMissingLetters(goodInput)).not.to.throw()
     })
-    badInputs.forEach(badInput => {
+  })
+
+  it('should throw an error when given a non-string argument', () => {
+    nonStringArguments.forEach(badInput => {
       expect(() => getMissingLetters(badInput)).to.throw(TypeError)
     })
   })
