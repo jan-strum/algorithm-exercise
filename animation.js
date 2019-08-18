@@ -39,17 +39,15 @@ const checkChamber = nextAnimation => {
   return isEmpty
 }
 
-const computeAnimation = (speed, init, animationsIndex) => {
+const computeAnimation = (speed, init, time) => {
   // Create an array of unoccupied locations:
   const animation = [...init].map(location => '.')
 
   for (let i = 0; i < init.length; i++) {
     const direction = init[i] // "L", "R", or ."
     const nextLocation = // A particle's next location, given its index,
-      // direction, the chamber's speed, and the animationsIndex.
-      direction === 'L'
-        ? i - speed * animationsIndex
-        : i + speed * animationsIndex
+      // direction, the chamber's speed, and the time.
+      direction === 'L' ? i - speed * time : i + speed * time
 
     // The second expression of the following two conditions checks
     // to see whether or not a particle's location is within the chamber.
@@ -72,8 +70,9 @@ const animate = (speed, init) => {
 
   let chamberIsEmpty
   let currentAnimation
-  let animationsIndex = 0 // This corresponds to the index of the returned
-  // animations array, defined below.
+  let time = 0
+  // The "time" corresponds to the point in time of any given animation
+  // (i.e., a given index of the returned animations array, defined below).
   const animations = []
 
   while (!chamberIsEmpty) {
@@ -82,10 +81,10 @@ const animate = (speed, init) => {
     // into the animations array, regardless of whether or not
     // "init" denotes an empty chamber (i.e., regardless of
     // whether or not "chamberIsEmpty" is true).
-    currentAnimation = computeAnimation(speed, init, animationsIndex)
+    currentAnimation = computeAnimation(speed, init, time)
     animations.push(currentAnimation)
 
-    animationsIndex++
+    time++
     chamberIsEmpty = checkChamber(currentAnimation)
   }
 
