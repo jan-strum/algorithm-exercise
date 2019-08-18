@@ -15,7 +15,7 @@ describe('animate', () => {
   })
 
   it('should take a string of positions as its second argument', () => {
-    // Test case with 'LX.RQ>' as second argument
+    //Test case with 'LX.RQ>' as second argument
     expect(() => animate(1, ['L', '.', 'R'])).to.throw(TypeError)
   })
 
@@ -45,48 +45,48 @@ describe('animate', () => {
     )
   })
 
-  // it('should return an array, each element of which represents the state of the chamber at the corresponding index', () => {
-  //   expect(animation0).to.deep.equal([
-  //     '..X....',
-  //     '....X..',
-  //     '......X',
-  //     '.......'
-  //   ])
-  //   expect(animation1).to.deep.equal([
-  //     'XX..XXX',
-  //     '.X.XX..',
-  //     'X.....X',
-  //     '.......'
-  //   ])
-  //   expect(animation2).to.deep.equal([
-  //     'XXXX.XXXX',
-  //     'X..X.X..X',
-  //     '.X.X.X.X.',
-  //     '.X.....X.',
-  //     '.........'
-  //   ])
-  //   expect(animation3).to.deep.equal(['XXXXXXXXXX', '..........'])
-  //   expect(animation4).to.deep.equal(['...'])
-  //   expect(animation5).to.deep.equal([
-  //     'XXXX.XX.XXX.X.XXXX.',
-  //     '..XXX..X..XX.X..XX.',
-  //     '.X.XX.X.X..XX.XX.XX',
-  //     'X.X.XX...X.XXXXX..X',
-  //     '.X..XXX...X..XX.X..',
-  //     'X..X..XX.X.XX.XX.X.',
-  //     '..X....XX..XX..XX.X',
-  //     '.X.....XXXX..X..XX.',
-  //     'X.....X..XX...X..XX',
-  //     '.....X..X.XX...X..X',
-  //     '....X..X...XX...X..',
-  //     '...X..X.....XX...X.',
-  //     '..X..X.......XX...X',
-  //     '.X..X.........XX...',
-  //     'X..X...........XX..',
-  //     '..X.............XX.',
-  //     '.X...............XX',
-  //     'X.................X',
-  //     '...................'
-  //   ])
-  // })
+  it('should return an array, each element of which represents the state of the chamber at the corresponding index', () => {
+    expect(animation0).to.deep.equal([
+      '..X....',
+      '....X..',
+      '......X',
+      '.......'
+    ])
+    expect(animation1).to.deep.equal([
+      'XX..XXX',
+      '.X.XX..',
+      'X.....X',
+      '.......'
+    ])
+    expect(animation2).to.deep.equal([
+      'XXXX.XXXX',
+      'X..X.X..X',
+      '.X.X.X.X.',
+      '.X.....X.',
+      '.........'
+    ])
+    expect(animation3).to.deep.equal(['XXXXXXXXXX', '..........'])
+    expect(animation4).to.deep.equal(['...'])
+    expect(animation5).to.deep.equal([
+      'XXXX.XX.XXX.X.XXXX.',
+      '..XXX..X..XX.X..XX.',
+      '.X.XX.X.X..XX.XX.XX',
+      'X.X.XX...X.XXXXX..X',
+      '.X..XXX...X..XX.X..',
+      'X..X..XX.X.XX.XX.X.',
+      '..X....XX..XX..XX.X',
+      '.X.....XXXX..X..XX.',
+      'X.....X..XX...X..XX',
+      '.....X..X.XX...X..X',
+      '....X..X...XX...X..',
+      '...X..X.....XX...X.',
+      '..X..X.......XX...X',
+      '.X..X.........XX...',
+      'X..X...........XX..',
+      '..X.............XX.',
+      '.X...............XX',
+      'X.................X',
+      '...................'
+    ])
+  })
 })

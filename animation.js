@@ -7,50 +7,11 @@ const animate = (speed, init) => {
     throw new TypeError('The second argument must be a string.')
   }
 
-  // specify diff between animation & state
-  const computeCurrentAnimation = state => {
-    // console.log('state', state)
-    let currentAnimationArray = [...state]
-
-    for (let i = 0; i < state.length; i++) {
-      let particle = state[i]
-
-      if (particle === '.') currentAnimationArray.splice(i, 1, '.')
-      else currentAnimationArray.splice(i, 1, 'X')
-    }
-
-    const currentAnimationString = currentAnimationArray.join('')
-    return currentAnimationString
-  }
-
-  // specify diff between animation & state
-  const computeNextState = currentState => {
-    let nextState = [...currentState]
-
-    for (let i = 0; i < currentState.length; i++) {
-      let particle = currentState[i]
-
-      if (particle === 'L') {
-        nextState.splice(i, 1, '.')
-        if (i - speed >= 0) {
-          nextState.splice(i - speed, 1, 'L')
-        }
-      } else if (particle === 'R') {
-        nextState.splice(i, 1, '.')
-        if (i + speed <= currentState.length - 1) {
-          nextState.splice(i + speed, 1, 'R')
-        }
-      }
-    }
-
-    return nextState
-  }
-
-  const checkChamber = state => {
+  const checkChamber = nextAnimation => {
     let isEmpty = false
 
-    for (let i = 0; i < state.length; i++) {
-      let particle = state[i]
+    for (let i = 0; i < nextAnimation.length; i++) {
+      let particle = nextAnimation[i]
 
       if (particle !== '.') {
         isEmpty = false
@@ -63,23 +24,43 @@ const animate = (speed, init) => {
     return isEmpty
   }
 
-  const animation = []
+  const computeAnimation = animationIndex => {
+    // make this the else
+    const animation = [...init].map(position => '.')
 
-  // let chamberIsEmpty = checkChamber(init)
-  let chamberIsEmpty = false
+    for (let i = 0; i < init.length; i++) {
+      let direction = init[i]
+      let nextPosition =
+        direction === 'L'
+          ? i - speed * animationIndex
+          : i + speed * animationIndex
 
-  let currentState = init
+      if (direction === 'L' && animation[nextPosition]) {
+        animation[nextPosition] = 'X'
+      } else if (direction === 'R' && animation[nextPosition]) {
+        animation[nextPosition] = 'X'
+      }
+    }
 
-  while (!chamberIsEmpty) {
-    let currentAnimation = computeCurrentAnimation(currentState)
-    animation.push(currentAnimation)
+    const animationString = animation.join('')
 
-    let nextState = computeNextState(currentState)
-    chamberIsEmpty = checkChamber(currentState)
-    currentState = nextState
+    return animationString
   }
 
-  return animation
+  let chamberIsEmpty = checkChamber(init)
+  let animationIndex = 0
+  let currentAnimation
+  const animations = []
+
+  while (!chamberIsEmpty || !animationIndex) {
+    currentAnimation = computeAnimation(animationIndex)
+    animations.push(currentAnimation)
+
+    animationIndex++
+    chamberIsEmpty = checkChamber(currentAnimation)
+  }
+
+  return animations
 }
 
 module.exports = animate
