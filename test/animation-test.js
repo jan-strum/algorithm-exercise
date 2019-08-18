@@ -10,6 +10,7 @@ describe('animate', () => {
   const animation5 = animate(1, 'LRRL.LR.LRR.R.LRRL.')
 
   it('should take a positive integer representing speed as its first argument', () => {
+    expect(() => animate(3000, '..L..R..L..R..L..R..L..R..L..R')).not.to.throw()
     expect(() => animate('1')).to.throw(TypeError)
     expect(() => animate(0)).to.throw(Error)
   })

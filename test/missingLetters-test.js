@@ -2,17 +2,21 @@ const { expect } = require('chai')
 const getMissingLetters = require('../missingLetters')
 
 describe('getMissingLetters', () => {
-  const badInputs = [undefined, null, 1, {}, []]
-
   const slowFox = 'A slow yellow fox crawls under the proactive dog'
   const lions = 'Lions, and tigers, and bears, oh my!'
   const empty = ''
+
+  const goodInputs = [slowFox, lions, empty]
+  const badInputs = [undefined, null, 1, {}, []]
 
   const missingFromSlowFox = getMissingLetters(slowFox)
   const missingFromLions = getMissingLetters(lions)
   const missingFromEmpty = getMissingLetters(empty)
 
   it('should take a string as an input', () => {
+    goodInputs.forEach(goodInput => {
+      expect(() => getMissingLetters(goodInput)).not.to.throw()
+    })
     badInputs.forEach(badInput => {
       expect(() => getMissingLetters(badInput)).to.throw(TypeError)
     })
