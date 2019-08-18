@@ -1,3 +1,7 @@
+# Description
+
+The following code was written in JavaScript, and tested with Mocha/Chai.
+
 # Instructions
 
 ### Installation
