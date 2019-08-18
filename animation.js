@@ -1,12 +1,10 @@
-const checkArguments = (speed, init) => {
-  // Check "speed" argument:
+const validateArguments = (speed, init) => {
   if (!Number.isInteger(speed)) {
     throw new TypeError('The first argument must be an integer.')
   } else if (speed < 1) {
     throw new Error('The first argument must be a positive integer.')
   }
 
-  // Check "init" argument:
   if (typeof init !== 'string') {
     throw new TypeError('The second argument must be a string.')
   }
@@ -70,7 +68,8 @@ const computeAnimation = (speed, init, animationsIndex) => {
 }
 
 const animate = (speed, init) => {
-  checkArguments(speed, init)
+  validateArguments(speed, init)
+
   let chamberIsEmpty
   let currentAnimation
   let animationsIndex = 0 // This corresponds to the index of the returned

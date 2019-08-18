@@ -1,33 +1,48 @@
-const getMissingLetters = string => {
+const validateArgument = string => {
   if (typeof string !== 'string') {
     throw new TypeError(
       'getMissingLettersCache must take a string as an input.'
     )
   }
+}
 
-  const characters = [...string]
-  const presentCharacters = {}
+const cacheLetters = letters => {
+  const letterCache = {}
 
-  characters.forEach(char => {
-    // Store each unique character in the presentCharacters object:
-    if (!presentCharacters[char]) {
-      presentCharacters[char] = true
-    }
+  letters.forEach(char => {
+    // Convert each character to lower case...
+    const letter = char.toLowerCase()
+    // and then store each unique letter in the "letterCache" object:
+    if (!letterCache[letter]) letterCache[letter] = true
   })
 
+  return letterCache
+}
+
+const composeMissingLetters = letterCache => {
   const alphabetString = 'abcdefghijklmnopqrstuvwxyz'
   const alphabetArray = [...alphabetString]
 
-  // Find all letters in the alphabet not present in the input string:
+  // Find all letters in the alphabet not present in the "letterCache"
+  // (i.e., not present in the input string):
   const missingLettersArray = alphabetArray.filter(
-    letter =>
-      !presentCharacters[letter] &&
-      !presentCharacters[letter.toLocaleUpperCase()] // (Case insensitive.)
+    letter => !letterCache[letter]
   )
 
   const missingLettersString = missingLettersArray.join('')
 
   return missingLettersString
+}
+
+const getMissingLetters = string => {
+  validateArgument(string)
+
+  const letters = [...string]
+  const letterCache = cacheLetters(letters)
+
+  const missingLetters = composeMissingLetters(letterCache)
+
+  return missingLetters
 }
 
 module.exports = getMissingLetters
